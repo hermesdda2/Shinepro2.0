@@ -10,7 +10,7 @@ npm ci --omit=dev
 
 echo "🔨 Instalando dependencias del frontend y compilando..."
 cd ../frontend
-npm ci
+npm ci --legacy-peer-deps
 npm run build
 
 echo "📁 Copiando dist → backend/public..."
