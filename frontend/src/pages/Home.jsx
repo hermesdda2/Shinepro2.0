@@ -348,12 +348,12 @@ function Hero() {
       img.onload = () => {
         loaded++;
         setLoadedCount(loaded);
-        if (loaded === images.length) setAllLoaded(true);
+        if (loaded === 1) setAllLoaded(true);
       };
       img.onerror = () => {
         loaded++;
         setLoadedCount(loaded);
-        if (loaded === images.length) setAllLoaded(true);
+        if (loaded === 1) setAllLoaded(true);
       };
       images.push(img);
     }
