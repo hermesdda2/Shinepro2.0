@@ -344,7 +344,7 @@ function Hero() {
 
     for (let i = 1; i <= totalFrames; i++) {
       const img = new Image();
-      img.src = `${folder}ezgif-frame-${padded(i)}.jpg`;
+      img.src = `${folder}ezgif-frame-${padded(i)}.webp`;
       img.onload = () => {
         loaded++;
         setLoadedCount(loaded);
