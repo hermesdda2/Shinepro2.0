@@ -15,15 +15,11 @@ npm run build
 
 echo "📁 Copiando dist → backend/public..."
 cd ..
-# Preserve hero image folders before wiping public/
-mkdir -p /tmp/hero-backup
-[ -d backend/public/Hero\ Shine\ Pro\ 3.0-jpg ] && cp -r backend/public/Hero\ Shine\ Pro\ 3.0-jpg /tmp/hero-backup/
-[ -d backend/public/Hero\ Vertical2.0 ] && cp -r backend/public/Hero\ Vertical2.0 /tmp/hero-backup/
 rm -rf backend/public
 cp -r frontend/dist backend/public
-# Restore hero images
-[ -d /tmp/hero-backup/Hero\ Shine\ Pro\ 3.0-jpg ] && cp -r /tmp/hero-backup/Hero\ Shine\ Pro\ 3.0-jpg backend/public/
-[ -d /tmp/hero-backup/Hero\ Vertical2.0 ] && cp -r /tmp/hero-backup/Hero\ Vertical2.0 backend/public/
-rm -rf /tmp/hero-backup
+# Restore hero images from permanent location
+HERO_SRC="/home/andresshine/hero-images"
+[ -d "$HERO_SRC/Hero Shine Pro 3.0-jpg" ] && cp -r "$HERO_SRC/Hero Shine Pro 3.0-jpg" backend/public/
+[ -d "$HERO_SRC/Hero Vertical2.0" ] && cp -r "$HERO_SRC/Hero Vertical2.0" backend/public/
 
 echo "✅ Listo. Inicia el servidor con: cd backend && npm start"
