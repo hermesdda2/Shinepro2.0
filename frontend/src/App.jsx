@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LangProvider } from './LangContext';
 import { AdminAuthProvider } from './AdminAuthContext';
@@ -15,13 +15,13 @@ const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AdminBookings  = lazy(() => import('./pages/AdminBookings'));
 const AdminSettings  = lazy(() => import('./pages/AdminSettings'));
 
-function App({ onReady }) {
-  useEffect(() => { onReady?.() }, []);
+function App() {
   return (
     <AdminAuthProvider>
       <LangProvider>
         <BrowserRouter>
           <Suspense fallback={null}>
+            <ReadySignal onReady={onReady} />
             <Routes>
               {/* Public client routes */}
               <Route path="/*" element={

@@ -10,10 +10,22 @@ function removeLoader() {
   setTimeout(() => loader.remove(), 300)
 }
 
-const root = createRoot(document.getElementById('root'))
-root.render(
+// Watch for React to paint real content into #root, then remove loader
+const observer = new MutationObserver(() => {
+  const root = document.getElementById('root')
+  if (root && root.children.length > 1) {
+    observer.disconnect()
+    removeLoader()
+  }
+})
+observer.observe(document.getElementById('root'), { childList: true })
+
+// Safety fallback: remove loader after 5s no matter what
+setTimeout(removeLoader, 5000)
+
+createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App onReady={removeLoader} />
+    <App />
   </StrictMode>,
 )
 
