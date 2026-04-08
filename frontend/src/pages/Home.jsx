@@ -465,37 +465,6 @@ function Hero() {
           pointerEvents: 'none',
         }} />
 
-        {/* Loading screen */}
-        {!allLoaded && (
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: '#0a0a0a',
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            zIndex: 10,
-          }}>
-            <img src="/logo.png" alt="Shine Pro" style={{ width: 90, marginBottom: '1.5rem', opacity: 0.9 }} />
-            <div style={{ fontSize: '2rem', fontWeight: 900, color: '#FFD700', letterSpacing: '0.1em', marginBottom: '0.4rem', fontFamily: 'Outfit, sans-serif' }}>
-              SHINE PRO
-            </div>
-            <div style={{ fontSize: '0.7rem', color: '#9a9a9a', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '2rem' }}>
-              MOBILE AUTO SPA
-            </div>
-            <div style={{ width: '220px', marginBottom: '0.75rem' }}>
-              <div style={{ height: '4px', background: 'rgba(255,255,255,0.08)', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{
-                  height: '100%', width: `${loadPct}%`,
-                  background: 'linear-gradient(90deg, #E6BC00, #FFD700)',
-                  borderRadius: '4px', transition: 'width 0.15s ease',
-                  boxShadow: '0 0 10px rgba(255,215,0,0.4)',
-                }} />
-              </div>
-            </div>
-            <div style={{ fontSize: '0.72rem', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-              Loading experience... {loadPct}%
-            </div>
-          </div>
-        )}
 
         {/* Text overlay */}
         <div style={{
