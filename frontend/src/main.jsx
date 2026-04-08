@@ -8,4 +8,7 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
+const loader = document.getElementById('sp-loader')
+if (loader) loader.remove()
+
 
