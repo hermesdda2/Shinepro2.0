@@ -48,7 +48,7 @@ if (isProd) {
   const distPath = path.join(__dirname, '..', 'public');
   app.use(express.static(distPath, { maxAge: '7d' }));
   // SPA fallback — all non-API routes serve index.html
-  app.get('*', (_req, res) => {
+  app.get('*path', (_req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 } else {
