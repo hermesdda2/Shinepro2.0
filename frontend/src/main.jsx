@@ -8,8 +8,4 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
-// Remove the initial loader once React has mounted
-const loader = document.getElementById('app-loader')
-if (loader) loader.remove()
-
 

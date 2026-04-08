@@ -26,33 +26,7 @@
 </head>
 
 <body>
-  <div id="root">
-    <style>
-      #app-loader {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #0a0a0a;
-        z-index: 9999;
-      }
-      #app-loader svg {
-        width: 64px;
-        height: 64px;
-        animation: spin 1s linear infinite;
-      }
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-    </style>
-    <div id="app-loader">
-      <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="25" cy="25" r="20" stroke="#1a1a1a" stroke-width="4"/>
-        <path d="M25 5 A20 20 0 0 1 45 25" stroke="#00C6FF" stroke-width="4" stroke-linecap="round"/>
-      </svg>
-    </div>
-  </div>
+  <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
