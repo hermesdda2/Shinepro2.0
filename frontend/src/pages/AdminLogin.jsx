@@ -47,6 +47,7 @@ export default function AdminLogin() {
 
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <div onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <div style={{
             width: '72px', height: '72px', borderRadius: '20px',
             background: 'rgba(255,215,0,0.08)', border: '1px solid rgba(255,215,0,0.2)',
@@ -60,6 +61,7 @@ export default function AdminLogin() {
           </div>
           <div style={{ fontSize: '0.7rem', color: '#3a4a6b', letterSpacing: '0.3em', textTransform: 'uppercase', marginTop: '4px', fontWeight: 600 }}>
             Admin Panel
+          </div>
           </div>
         </div>
 
