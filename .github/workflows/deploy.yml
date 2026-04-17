@@ -2,21 +2,21 @@ name: Deploy to VPS
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/andresshine/htdocs/www.shinepro.net
-            git fetch origin
-            git reset --hard origin/main
-            bash deploy.sh
-            pm2 restart shinepro --update-env
+            cd /home/shinepro/htdocs
+            git pull origin main
+            cd frontend && npm install && npm run build && cd ..
+            pm2 restart shinepro
