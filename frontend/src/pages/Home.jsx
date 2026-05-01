@@ -314,6 +314,7 @@ function padded(n) {
 function Hero() {
   const { lang } = useLang();
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const imagesRef = useRef([]);
   const currentFrameRef = useRef(0);
   const rafRef = useRef(null);
@@ -322,6 +323,7 @@ function Hero() {
   const [allLoaded, setAllLoaded] = useState(false);
   const [frameProgress, setFrameProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -329,8 +331,21 @@ function Hero() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // ── Preload frames (switches set on isMobile) ────────────────
+  // ── Start loading frames only when hero is near the viewport ─
   useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setShouldLoad(true); observer.disconnect(); } },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // ── Preload frames (only after shouldLoad) ───────────────────
+  useEffect(() => {
+    if (!shouldLoad) return;
     const totalFrames = isMobile ? MOBILE_FRAMES : DESKTOP_FRAMES;
     const folder = isMobile ? MOBILE_FOLDER : DESKTOP_FOLDER;
     const images = [];
@@ -358,7 +373,7 @@ function Hero() {
       images.push(img);
     }
     imagesRef.current = images;
-  }, [isMobile]);
+  }, [isMobile, shouldLoad]);
 
   // ── Draw frame on canvas (cover-fit for both orientations) ───
   const drawFrame = useCallback((index) => {
@@ -441,7 +456,7 @@ function Hero() {
   const loadPct = Math.round((loadedCount / (isMobile ? MOBILE_FRAMES : DESKTOP_FRAMES)) * 100);
 
   return (
-    <div id="hero-scroll-container" style={{ height: '400vh', position: 'relative' }}>
+    <div id="hero-scroll-container" ref={containerRef} style={{ height: '400vh', position: 'relative' }}>
 
       {/* Sticky canvas area */}
       <div style={{ position: 'sticky', top: 0, width: '100%', height: '100vh', overflow: 'hidden' }}>
@@ -632,6 +647,7 @@ function Comparison() {
             <img
               src="/after.jpg"
               alt="Clean Car"
+              loading="lazy"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
             <div style={{
@@ -655,6 +671,7 @@ function Comparison() {
               <img
                 src="/before.jpg"
                 alt="Dirty Car"
+                loading="lazy"
                 style={{
                   width: containerWidth || '600px',
                   height: '100%',
@@ -1402,6 +1419,7 @@ function Locations() {
                 onMouseLeave={e => e.currentTarget.style.transform = 'perspective(1000px) rotateY(-5deg)'}
               >
                 <img src="/locations_map_creative_1775317017356.png" alt="Orange County Service Area"
+                  loading="lazy"
                   style={{ width: '100%', height: 'auto', borderRadius: '30px', display: 'block', boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }} />
               </div>
             </div>
@@ -1620,7 +1638,7 @@ function Gallery() {
                 borderRadius: '24px', overflow: 'hidden',
                 cursor: 'pointer', border: '1px solid rgba(255,212,0,0.1)'
               }}>
-                <img src={p.src} alt={p.label} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }} className="zoom-on-hover" />
+                <img src={p.src} alt={p.label} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }} className="zoom-on-hover" />
                 <div style={{
                   position: 'absolute', inset: 0,
                   background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
